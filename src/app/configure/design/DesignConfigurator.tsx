@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn, formatPrice } from "@/lib/utils";
 import NextImage from "next/image";
 import { Rnd } from "react-rnd";
-import { Radio, RadioGroup } from "@headlessui/react";
+import { RadioGroup } from "@headlessui/react";
 import { useRef, useState } from "react";
 import {
   COLORS,
@@ -44,7 +44,7 @@ const DesignConfigurator = ({
   const { toast } = useToast();
   const router = useRouter();
 
-  const { mutate: saveConfig } = useMutation({
+  const { mutate: saveConfig, isPending } = useMutation({
     mutationKey: ["save-config"],
     mutationFn: async (args: SaveConfigArgs) => {
       await Promise.all([saveConfiguration(), _saveConfig(args)]);
@@ -52,7 +52,7 @@ const DesignConfigurator = ({
     onError: () => {
       toast({
         title: "Something went wrong",
-        description: "There was an error on our end, Please try again.",
+        description: "There was an error on our end. Please try again.",
         variant: "destructive",
       });
     },
@@ -89,8 +89,6 @@ const DesignConfigurator = ({
   const { startUpload } = useUploadThing("imageUploader");
 
   async function saveConfiguration() {
-    if (!phoneCaseRef.current) return;
-
     try {
       const {
         left: caseLeft,
@@ -161,9 +159,9 @@ const DesignConfigurator = ({
       >
         <div className="relative w-60 bg-opacity-50 pointer-events-none aspect-[896/1831]">
           <AspectRatio
-            ratio={896 / 1831}
-            className="pointer-events-none relative z-50 aspect-[896/1831]"
             ref={phoneCaseRef}
+            ratio={896 / 1831}
+            className="pointer-events-none relative z-50 aspect-[896/1831] w-full"
           >
             <NextImage
               fill
@@ -193,6 +191,7 @@ const DesignConfigurator = ({
               height: parseInt(ref.style.height.slice(0, -2)),
               width: parseInt(ref.style.width.slice(0, -2)),
             });
+
             setRenderedPosition({ x, y });
           }}
           onDragStop={(_, data) => {
@@ -219,15 +218,15 @@ const DesignConfigurator = ({
         </Rnd>
       </div>
 
-      <div className="h-[37.5rem] wi-full col-span-full lg:col-span-1 flex flex-col bg-white">
+      <div className="h-[37.5rem] w-full col-span-full lg:col-span-1 flex flex-col bg-white">
         <ScrollArea className="relative flex-1 overflow-auto">
           <div
             aria-hidden="true"
-            className="absolute z-10 inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white pinter-events-none"
+            className="absolute z-10 inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white pointer-events-none"
           />
 
           <div className="px-8 pb-12 pt-8">
-            <h2 className="tracking-tight font-bol text-3xl">
+            <h2 className="tracking-tight font-bold text-3xl">
               Customize your case
             </h2>
 
@@ -335,7 +334,7 @@ const DesignConfigurator = ({
                             value={option}
                             className={({ active, checked }) =>
                               cn(
-                                "relative block cursor-pointer rounded-lg bg-white px-6 py-4 shadow-sm border-2 border-zinc-200 focus:outline-none ring-0 focues:ring-0 outline-none sm:flex sm:justify-between",
+                                "relative block cursor-pointer rounded-lg bg-white px-6 py-4 shadow-sm border-2 border-zinc-200 focus:outline-none ring-0 focus:ring-0 outline-none sm:flex sm:justify-between",
                                 {
                                   "border-primary": active || checked,
                                 }
@@ -394,6 +393,9 @@ const DesignConfigurator = ({
                 )}
               </p>
               <Button
+                isLoading={isPending}
+                disabled={isPending}
+                loadingText="Saving"
                 onClick={() =>
                   saveConfig({
                     configId,
