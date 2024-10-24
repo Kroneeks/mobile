@@ -1,3 +1,4 @@
+import Cup from "@/components/Cup";
 import { Icons } from "@/components/Icons";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Phone from "@/components/Phone";
@@ -15,33 +16,33 @@ export default function Home() {
           <div className="col-span-2 px-6 lg:px-0 lg:pt-4">
             <div className="relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start">
               <div className="absolute w-28 left-0 -top-20 hidden lg:block">
-                <img src="/snake-1.png" className="w-full" />
+                <img src="/dog-1.png" className="w-full" />
               </div>
               <h1 className="relative w-fit tracking-tight text-balance mt-16 font-bold !leading-tight text-gray-900 text-5xl md:text-6xl lg:text-7xl">
-                Your Image on a{" "}
-                <span className="bg-green-600 px-2 text-white">Custom</span>{" "}
-                Phone Case
+                Ваше изображение на{" "}
+                <span className="bg-orange-500 px-2 text-white">
+                  индивидуальной
+                </span>{" "}
+                кружке или бокале
               </h1>
-              <p className="mt-8 text-lg lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap">
-                Capture your favorite memories with your own,{" "}
-                <span className="font-semibold">one-of-one</span> phone case.
-                CaseCobra allows you to protect your memories, not just your
-                phone case.
+              <p className="mt-8 text-2xl lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap">
+                Сохраните любимые воспоминания на своей{" "}
+                <span className="font-semibold">уникальной</span> кружке.
               </p>
 
-              <ul className="mt-8 space-y-2 text-left font-medium flex flex-cold items-center sm:items-start">
+              <ul className="mt-8 text-2xl space-y-2 text-left font-medium flex flex-cold items-center sm:items-start">
                 <div className="space-y-2">
                   <li className="flex gap-1.5 items-center text-left">
-                    <Check className="h-5 w-5 shrink-0 text-green-600" />
-                    High-quality, durable material
+                    <Check className="h-5 w-5 shrink-0 text-orange-500" />
+                    Высококачественные материалы
                   </li>
                   <li className="flex gap-1.5 items-center text-left">
-                    <Check className="h-5 w-5 shrink-0 text-green-600" />5 year
-                    print guarantee
+                    <Check className="h-5 w-5 shrink-0 text-orange-500" />1
+                    месяц гарантии
                   </li>
                   <li className="flex gap-1.5 items-center text-left">
-                    <Check className="h-5 w-5 shrink-0 text-green-600" />
-                    Modern iPhone models supported
+                    <Check className="h-5 w-5 shrink-0 text-orange-500" />
+                    Большое разнообразие кружек и бокалов
                   </li>
                 </div>
               </ul>
@@ -77,15 +78,16 @@ export default function Home() {
 
                 <div className="flex flex-col justify-between items-center sm:items-start">
                   <div className="flex gap-0.5">
-                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
-                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
-                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
-                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
-                    <Star className="h-4 w-4 text-green-600 fill-green-600" />
+                    <Star className="h-4 w-4 text-orange-500 fill-orange-500" />
+                    <Star className="h-4 w-4 text-orange-500 fill-orange-500" />
+                    <Star className="h-4 w-4 text-orange-500 fill-orange-500" />
+                    <Star className="h-4 w-4 text-orange-500 fill-orange-500" />
+                    <Star className="h-4 w-4 text-orange-500 fill-orange-500" />
                   </div>
 
                   <p>
-                    <span className="font-semibold">1.250</span> happy customers
+                    <span className="font-semibold">1.250</span> довольных
+                    клиентов
                   </p>
                 </div>
               </div>
@@ -102,7 +104,7 @@ export default function Home() {
                 src="/line.png"
                 className="absolute w-20 -left-6 -bottom-6 select-none"
               />
-              <Phone className="w-64" imgSrc="/testimonials/1.jpg" />
+              <Cup className="w-128" imgSrc="/testimonials/7.png" />
             </div>
           </div>
         </MaxWidthWrapper>
@@ -113,24 +115,23 @@ export default function Home() {
         <MaxWidthWrapper className="flex flex-col items-center gap-14 sm:gap-12">
           <div className="flex flex-col lg:flex-row items-center gap-4 sm:gap-6">
             <h2 className="order-1 mt-2 tracking-tight text-cetner text-balance !leading-tight font-bold text-5xl md:text-6xl text-gray-900">
-              What our{" "}
+              Что говорят наши
               <span className="relative px-2">
-                customers{" "}
-                <Icons.underline className="hidden sm:block pointer-events-none absolute inset-x-0 -bottom-6 text-green-500" />
+                клиенты
+                <Icons.underline className="hidden sm:block pointer-events-none absolute inset-x-0 -bottom-6 text-orange-400" />
               </span>{" "}
-              say
             </h2>
-            <img src="/snake-2.png" className="w-24 order-0 lg:order-2" />
+            <img src="/dog-2.png" className="w-32 order-0 lg:order-2" />
           </div>
 
           <div className="mx-auto grid max-w-2xl grid-cols-1 px-4 lg:mx-0 lg:max-w-none lg:grid-cols-2 gap-y-16">
             <div className="flex flex-auto flex-col gap-4">
               <div className="flex gap-0.5 mb-2">
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
               </div>
               <div className="text-lg leading-8">
                 <p>
@@ -152,7 +153,7 @@ export default function Home() {
                 <div className="flex flex-col">
                   <p className="font-semibold">Jonathan</p>
                   <div className="flex gap-1.5 items-center text-zinc-600">
-                    <Check className="h-4 w-4 stroke-[3px] text-green-600" />
+                    <Check className="h-4 w-4 stroke-[3px] text-orange-500" />
                     <p className="text-sm">Verified Purchase</p>
                   </div>
                 </div>
@@ -162,11 +163,11 @@ export default function Home() {
             {/* second comment */}
             <div className="flex flex-auto flex-col gap-4">
               <div className="flex gap-0.5 mb-2">
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
-                <Star className="h-5 w-5 text-green-600 fill-green-600" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
+                <Star className="h-5 w-5 text-orange-500 fill-orange-500" />
               </div>
               <div className="text-lg leading-8">
                 <p>
@@ -189,7 +190,7 @@ export default function Home() {
                 <div className="flex flex-col">
                   <p className="font-semibold">Josh</p>
                   <div className="flex gap-1.5 items-center text-zinc-600">
-                    <Check className="h-4 w-4 stroke-[3px] text-green-600" />
+                    <Check className="h-4 w-4 stroke-[3px] text-orange-500" />
                     <p className="text-sm">Verified Purchase</p>
                   </div>
                 </div>
@@ -206,17 +207,17 @@ export default function Home() {
       <section>
         <MaxWidthWrapper className="py-24">
           <div className="mb-12 px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl sm:text-center">
+            <div className="mx-auto max-w-4xl sm:text-center">
               <h2 className="order-1 mt-2 tracking-tight text-cetner text-balance !leading-tight font-bold text-5xl md:text-6xl text-gray-900">
-                Upload your photo and get{" "}
-                <span className="relative px-2 bg-green-600 text-white">
-                  your own case
+                Загрузите свой арт и получите{" "}
+                <span className="relative px-2 bg-orange-500 text-white">
+                  уникальную кружку
                 </span>{" "}
-                now
+                прямо сейчас
               </h2>
             </div>
           </div>
-          <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="relative flex flex-col items-center md:grid grid-cols-2 gap-40">
               <img
                 src="/arrow.png"
@@ -225,31 +226,27 @@ export default function Home() {
 
               <div className="relative h-80 md:h-full w-full md:justify-self-end max-w-sm rounded-xl bg-gray-900/5 ring-inset ring-gray-900/10 lg:rounded-2xl">
                 <img
-                  src="/horse.jpg"
+                  src="/anime.jfif"
                   className="rounded-md object-cover bg-white shadow-2xl ring-1 ring-gray-900/10 h-full w-full"
                 />
               </div>
 
-              <Phone className="w-60" imgSrc="/horse_phone.jpg" />
+              <Cup className="w-96" imgSrc="/anime_cup.png" />
             </div>
           </div>
 
           <ul className="mx-auto mt-12 max-w-prose sm:text-lg space-y-2 w-fit">
             <li className="w-fit">
-              <Check className="h-5 w-5 text-green-600 inline mr-1.5" />
-              High-quality silicone material
+              <Check className="h-5 w-5 text-orange-500 inline mr-1.5" />
+              Высокое качество материалов
             </li>
             <li className="w-fit">
-              <Check className="h-5 w-5 text-green-600 inline mr-1.5" />
-              Scratch- and fingerprint resistant coating
+              <Check className="h-5 w-5 text-orange-500 inline mr-1.5" />
+              Устойчивость к мойке в посудомоечной машине
             </li>
             <li className="w-fit">
-              <Check className="h-5 w-5 text-green-600 inline mr-1.5" />
-              Wireless charging compatible
-            </li>
-            <li className="w-fit">
-              <Check className="h-5 w-5 text-green-600 inline mr-1.5" />5 year
-              print warranty
+              <Check className="h-5 w-5 text-orange-500 inline mr-1.5" />1 месяц
+              гарантии на работу
             </li>
 
             <div className="flex justify-center">
@@ -260,7 +257,8 @@ export default function Home() {
                 })}
                 href="/configure/upload"
               >
-                Create your case now <ArrowRight className="h-4 w-4 ml-1.5" />
+                Создайте кружку прямо сейчас
+                <ArrowRight className="h-4 w-4 ml-1.5" />
               </Link>
             </div>
           </ul>

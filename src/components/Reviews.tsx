@@ -5,14 +5,15 @@ import MaxWidthWrapper from "./MaxWidthWrapper";
 import { useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Phone from "./Phone";
+import Cup from "./Cup";
 
 const PHONES = [
-  "/testimonials/1.jpg",
-  "/testimonials/2.jpg",
-  "/testimonials/3.jpg",
-  "/testimonials/4.jpg",
-  "/testimonials/5.jpg",
-  "/testimonials/6.jpg",
+  "/testimonials/7.png",
+  "/testimonials/8.png",
+  "/testimonials/9.png",
+  "/testimonials/10.png",
+  "/testimonials/11.png",
+  "/testimonials/12.png",
 ];
 
 function splitArray<T>(array: Array<T>, numParts: number) {
@@ -80,14 +81,7 @@ interface ReviewProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 function Review({ imgSrc, className, ...props }: ReviewProps) {
-  const POSSIBLE_ANIMATION_DELAYS = [
-    "0s",
-    "0.1s",
-    "0.2s",
-    "0.3s",
-    "0.4s",
-    "5s",
-  ];
+  const POSSIBLE_ANIMATION_DELAYS = ["0s", "0.1s", "0.2s", "0.3s", "0.4s"];
 
   const animationDelay =
     POSSIBLE_ANIMATION_DELAYS[
@@ -103,7 +97,7 @@ function Review({ imgSrc, className, ...props }: ReviewProps) {
       style={{ animationDelay }}
       {...props}
     >
-      <Phone imgSrc={imgSrc} />
+      <Cup imgSrc={imgSrc} />
     </div>
   );
 }
