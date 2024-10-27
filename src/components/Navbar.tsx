@@ -1,7 +1,7 @@
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-import { buttonVariants } from "./ui/button";
-import { ArrowRight } from "lucide-react";
+import { Button, buttonVariants } from "./ui/button";
+import { ArrowRight, ShoppingCart } from "lucide-react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const Navbar = async () => {
@@ -86,6 +86,24 @@ const Navbar = async () => {
                 </Link>
               </>
             )}
+            <div>
+              <Button className="group active">
+                <b>520 $</b>
+                <span className="h-full w-[1px] bg-white/30 mx-3"></span>
+                <div className="flex items-center gap-1 transition duration-300 group-hover:opacity-5">
+                  <ShoppingCart
+                    size={16}
+                    className="relative"
+                    strokeWidth={2}
+                  />
+                  <b>3</b>
+                </div>
+                <ArrowRight
+                  size={20}
+                  className="absolute right-5 transition duration-300 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0"
+                />
+              </Button>
+            </div>
           </div>
         </div>
       </MaxWidthWrapper>

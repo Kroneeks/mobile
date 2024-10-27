@@ -91,7 +91,7 @@ const Page = () => {
                   </div>
                 ) : isPending ? (
                   <div className="flex flex-col items-center">
-                    <p>Redirecting, please wait...</p>
+                    <p>Загрузка, немного терпения...</p>
                   </div>
                 ) : isDragOver ? (
                   <p>
@@ -99,8 +99,10 @@ const Page = () => {
                   </p>
                 ) : (
                   <p>
-                    <span className="font-semibold">Click to upload</span> or
-                    drag and drop
+                    <span className="font-semibold">
+                      Нажмите, чтобы загрузить
+                    </span>
+                    , или перетащите изображение
                   </p>
                 )}
               </div>
