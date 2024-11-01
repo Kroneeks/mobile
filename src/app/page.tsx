@@ -4,7 +4,15 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Phone from "@/components/Phone";
 import { Reviews } from "@/components/Reviews";
 import { buttonVariants } from "@/components/ui/button";
-import { ArrowRight, Check, Star } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  CheckCheck,
+  CheckCheckIcon,
+  CheckCircle,
+  CheckIcon,
+  Star,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -110,6 +118,26 @@ export default function Home() {
         </MaxWidthWrapper>
       </section>
 
+      <section className="py-24 flex justify-center text-center">
+        <div className="flex flex-col">
+          <h3 className="text-xl pb-4 flex gap-2 justify-center items-center">
+            donezsvetlana{" "}
+            <span className="size-5 rounded-full flex flex-row items-center justify-center bg-pink-500">
+              <CheckIcon className="text-white size-4" />
+            </span>
+          </h3>
+          <div className="w-40 h-40 rounded-full overflow-hidden p-1 bg-gradient-to-br from-amber-500 to-pink-500 ">
+            <img
+              src="/avatar.jpg"
+              className="rounded-full border-4 border-white"
+            />
+          </div>
+          <h2 className="text-3xl my-6 font-bold">Svetlana Donets</h2>
+          <p className="text-xl opacity-50">Designer</p>
+          <p className="text-xl">contact: doneze@tut.by</p>
+        </div>
+      </section>
+
       {/*  value proposition section */}
       <section className="bg-slate-100 py-24">
         <MaxWidthWrapper className="flex flex-col items-center gap-14 sm:gap-12">
@@ -209,11 +237,10 @@ export default function Home() {
           <div className="mb-12 px-6 lg:px-8">
             <div className="mx-auto max-w-4xl sm:text-center">
               <h2 className="order-1 mt-2 tracking-tight text-cetner text-balance !leading-tight font-bold text-5xl md:text-6xl text-gray-900">
-                Загрузите свой арт и получите{" "}
+                Отправьте нам свой арт и получите{" "}
                 <span className="relative px-2 bg-orange-500 text-white">
                   уникальную кружку
                 </span>{" "}
-                прямо сейчас
               </h2>
             </div>
           </div>
@@ -249,18 +276,20 @@ export default function Home() {
               гарантии на работу
             </li>
 
-            <div className="flex justify-center">
-              <Link
-                className={buttonVariants({
-                  size: "lg",
-                  className: "mx-auto mt-8",
-                })}
-                href="/configure/upload"
-              >
-                Создайте кружку прямо сейчас
-                <ArrowRight className="h-4 w-4 ml-1.5" />
-              </Link>
-            </div>
+            {!process.env.DEVELOP_MODE ? (
+              <div className="flex justify-center">
+                <Link
+                  className={buttonVariants({
+                    size: "lg",
+                    className: "mx-auto mt-8",
+                  })}
+                  href="/configure/upload"
+                >
+                  Создайте кружку прямо сейчас
+                  <ArrowRight className="h-4 w-4 ml-1.5" />
+                </Link>
+              </div>
+            ) : null}
           </ul>
         </MaxWidthWrapper>
       </section>

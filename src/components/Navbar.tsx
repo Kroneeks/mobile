@@ -72,38 +72,23 @@ const Navbar = async () => {
                   Логин
                 </Link>
 
-                <div className="h-8 w-px bg-zinc-200 hidden sm:block"></div>
-
-                <Link
-                  href="/configure/upload"
-                  className={buttonVariants({
-                    size: "lg",
-                    className: "hidden sm:flex items-center gap-1",
-                  })}
-                >
-                  Создать кружку
-                  <ArrowRight className="ml-1.5 h-5 w-5" />
-                </Link>
+                {!process.env.DEVELOP_MODE ? (
+                  <>
+                    <div className="h-8 w-px bg-zinc-200 hidden sm:block"></div>
+                    <Link
+                      href="/configure/upload"
+                      className={buttonVariants({
+                        size: "lg",
+                        className: "hidden sm:flex items-center gap-1",
+                      })}
+                    >
+                      Создать кружку
+                      <ArrowRight className="ml-1.5 h-5 w-5" />
+                    </Link>
+                  </>
+                ) : null}
               </>
             )}
-            <div>
-              <Button className="group active">
-                <b>520 $</b>
-                <span className="h-full w-[1px] bg-white/30 mx-3"></span>
-                <div className="flex items-center gap-1 transition duration-300 group-hover:opacity-5">
-                  <ShoppingCart
-                    size={16}
-                    className="relative"
-                    strokeWidth={2}
-                  />
-                  <b>3</b>
-                </div>
-                <ArrowRight
-                  size={20}
-                  className="absolute right-5 transition duration-300 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0"
-                />
-              </Button>
-            </div>
           </div>
         </div>
       </MaxWidthWrapper>
