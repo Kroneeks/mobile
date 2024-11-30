@@ -37,8 +37,8 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   )!;
 
   let totalPrice = BASE_PRICE;
-  if (material === "polycarbonate")
-    totalPrice += PRODUCT_PRICES.material.polycarbonate;
+  if (material === "multicolor")
+    totalPrice += PRODUCT_PRICES.material.multicolor;
   if (finish === "textured") totalPrice += PRODUCT_PRICES.finish.textured;
 
   const { mutate: createPaymentSession } = useMutation({
@@ -91,30 +91,30 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
         </div>
         <div className="mt-6 sm:col-span-9 sm:mt-0 md:row-end-1">
           <h3 className="text-3xl font-bold tracking-tight text-gray-900">
-            Your {modelLabel} Case
+            {modelLabel}
           </h3>
           <div className="mt-3 flex items-center gap-1.5 text-base">
             <Check className="h-4 w-4 text-green-500" />
-            In stock and ready to ship
+            Ваш арт будет проверен и мы постараемся его реализовать
           </div>
         </div>
 
         <div className="sm:col-span-12 md:col-span-9 text-base">
           <div className="grid grid-cols-1 gap-y-8 border-b border-gray-200 py-8 sm:grid-cols-2 sm:gap-x-6 sm:py-6 md:py-10">
             <div>
-              <p className="font-medium text-zinc-950">Highlights</p>
+              <p className="font-medium text-zinc-950">Основные моменты</p>
               <ol className="mt-3 text-zinc-700 list-disc list-inside">
-                <li>Wireless charging compatible</li>
-                <li>TPU shock absorption</li>
-                <li>Packaging made from recycled materials</li>
-                <li>5 year print warranty</li>
+                <li>Фарфоровые кружки и бокалы высокого качества</li>
+                <li>Разные по объему и цветовой палитре</li>
+                <li>Упаковка изготовленная из переработанных материалов</li>
+                <li>1 неделя гарантии на работу</li>
               </ol>
             </div>
             <div>
-              <p className="font-medium text-zinc-950">Materials</p>
+              <p className="font-medium text-zinc-950">Материалы</p>
               <ol className="mt-3 text-zinc-700 list-disc list-inside">
-                <li>High-quality, durable material</li>
-                <li>Scratch- and fingerprint resistant coating</li>
+                <li>Высокое качество материалов</li>
+                <li>Стойкость к мытью в т.ч. в посудомойке</li>
               </ol>
             </div>
           </div>
@@ -123,7 +123,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
             <div className="bg-gray-50 p-6 sm:rounded-lg sm:p-8">
               <div className="flow-root text-sm">
                 <div className="flex items-center justify-between py-1 mt-2">
-                  <p className="text-gray-600">Best price</p>
+                  <p className="text-gray-600">Цена</p>
                   <p className="font-medium text-gray-900">
                     {formatPrice(BASE_PRICE / 100)}
                   </p>
@@ -131,18 +131,20 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
                 {finish === "textured" ? (
                   <div className="flex items-center justify-between py-1 mt-2">
-                    <p className="text-gray-600">Textured finish</p>
+                    <p className="text-gray-600">
+                      Обработка термостойким клеем
+                    </p>
                     <p className="font-medium text-gray-900">
                       {formatPrice(PRODUCT_PRICES.finish.textured / 100)}
                     </p>
                   </div>
                 ) : null}
 
-                {material === "polycarbonate" ? (
+                {material === "multicolor" ? (
                   <div className="flex items-center justify-between py-1 mt-2">
-                    <p className="text-gray-600">Soft polycarbonate material</p>
+                    <p className="text-gray-600">Цветные стразы</p>
                     <p className="font-medium text-gray-900">
-                      {formatPrice(PRODUCT_PRICES.material.polycarbonate / 100)}
+                      {formatPrice(PRODUCT_PRICES.material.multicolor / 100)}
                     </p>
                   </div>
                 ) : null}
@@ -150,7 +152,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                 <div className="my-2 h-px bg-gray-200" />
 
                 <div className="flex items-center justify-between">
-                  <p className="font-semibold text-gray-900">Order total</p>
+                  <p className="font-semibold text-gray-900">Стоимость</p>
                   <p className="font-semibold text-gray-900">
                     {formatPrice(totalPrice / 100)}
                   </p>
@@ -163,7 +165,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                 onClick={() => handleCheckout()}
                 className="px-4 sm:px-6 lg:px-8"
               >
-                Check out <ArrowRight className="h-4 w-4 ml-1.5 inline" />{" "}
+                Отправить <ArrowRight className="h-4 w-4 ml-1.5 inline" />{" "}
               </Button>
             </div>
           </div>

@@ -5,76 +5,63 @@
 import { PRODUCT_PRICES } from "@/config/products";
 
 export const COLORS = [
-  { label: "Black", value: "black", tw: "zinc-950" },
+  { label: "Белый", value: "white", tw: "bg-white-950" },
+  { label: "Черный", value: "black", tw: "bg-zinc-950" },
   {
-    label: "Blue",
+    label: "Синий",
     value: "blue",
-    tw: "blue-950",
+    tw: "bg-blue-950",
   },
-  { label: "Rose", value: "rose", tw: "rose-950" },
+  { label: "Красный", value: "rose", tw: "bg-rose-800" },
 ] as const;
 
 export const MODELS = {
   name: "models",
   options: [
     {
-      label: "iPhone X",
-      value: "iphonex",
+      label: "Кружка",
+      value: "cup",
     },
     {
-      label: "iPhone 11",
-      value: "iphone11",
-    },
-    {
-      label: "iPhone 12",
-      value: "iphone12",
-    },
-    {
-      label: "iPhone 13",
-      value: "iphone13",
-    },
-    {
-      label: "iPhone 14",
-      value: "iphone14",
-    },
-    {
-      label: "iPhone 15",
-      value: "iphone15",
+      label: "Бокал",
+      value: "glass",
     },
   ],
 } as const;
 
 export const MATERIALS = {
   name: "material",
+  label: "Тип страз",
   options: [
     {
-      label: "Silicone",
-      value: "silicone",
+      label: "Одноцветные",
+      value: "onecolor",
       description: undefined,
-      price: PRODUCT_PRICES.material.silicone,
+      price: PRODUCT_PRICES.material.onecolor,
     },
     {
-      label: "Soft Polycarbonate",
-      value: "polycarbonate",
-      description: "Scratch-resistant coating",
-      price: PRODUCT_PRICES.material.polycarbonate,
+      label: "Цветные",
+      value: "multicolor",
+      description: "",
+      price: PRODUCT_PRICES.material.multicolor,
     },
   ],
 } as const;
 
 export const FINISHES = {
   name: "finish",
+  label: "Допоолнительно",
   options: [
     {
-      label: "Smooth Finish",
+      label: "Стандартная отделка",
       value: "smooth",
       description: undefined,
       price: PRODUCT_PRICES.finish.smooth,
     },
     {
-      label: "Textured Finish",
+      label: "Обработка термостойким клеем",
       value: "textured",
-      description: "Soft grippy texture",
+      description: "Добавление прочности вашему рисунку",
       price: PRODUCT_PRICES.finish.textured,
     },
   ],

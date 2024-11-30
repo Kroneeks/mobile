@@ -27,7 +27,7 @@ const Navbar = async () => {
                     variant: "ghost",
                   })}
                 >
-                  Sign out
+                  Выход
                 </Link>
                 {isAdmin ? (
                   <Link
@@ -37,7 +37,7 @@ const Navbar = async () => {
                       variant: "ghost",
                     })}
                   >
-                    Dashboard ✨
+                    Панель администратора ✨
                   </Link>
                 ) : null}
                 <Link

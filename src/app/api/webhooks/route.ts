@@ -44,6 +44,7 @@ export async function POST(req: Request) {
 
       const updatedOrder = await db.order.update({
         where: {
+          //@ts-ignore
           id: orderId,
         },
         data: {

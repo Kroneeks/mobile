@@ -227,7 +227,7 @@ const DesignConfigurator = ({
 
           <div className="px-8 pb-12 pt-8">
             <h2 className="tracking-tight font-bold text-3xl">
-              Customize your case
+              Настройте ваш дизайн
             </h2>
 
             <div className="w-full h-px bg-zinc-200 my-6" />
@@ -243,7 +243,7 @@ const DesignConfigurator = ({
                     }));
                   }}
                 >
-                  <Label>Color: {options.color.label}</Label>
+                  <Label>Цвет кружки: {options.color.label}</Label>
                   <div className="mt-3 flex items-center space-x-3">
                     {COLORS.map((color) => (
                       <RadioGroup.Option
@@ -260,7 +260,7 @@ const DesignConfigurator = ({
                       >
                         <span
                           className={cn(
-                            `bg-${color.tw}`,
+                            `${color.tw}`,
                             "h-8 w-8 rounded-full border border-black border-opacity-10"
                           )}
                         />
@@ -270,7 +270,7 @@ const DesignConfigurator = ({
                 </RadioGroup>
 
                 <div className="relative flex flex-col gap-3 w-full">
-                  <Label>Model</Label>
+                  <Label>Тип посуды</Label>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
@@ -313,7 +313,7 @@ const DesignConfigurator = ({
                 </div>
 
                 {[MATERIALS, FINISHES].map(
-                  ({ name, options: selectableOptions }) => (
+                  ({ name, label, options: selectableOptions }) => (
                     <RadioGroup
                       key={name}
                       value={options[name]}
@@ -324,9 +324,7 @@ const DesignConfigurator = ({
                         }));
                       }}
                     >
-                      <Label>
-                        {name.slice(0, 1).toUpperCase() + name.slice(1)}
-                      </Label>
+                      <Label>{label}</Label>
                       <div className="mt-3 space-y-4">
                         {selectableOptions.map((option) => (
                           <RadioGroup.Option
@@ -395,7 +393,7 @@ const DesignConfigurator = ({
               <Button
                 isLoading={isPending}
                 disabled={isPending}
-                loadingText="Saving"
+                loadingText="Сохранение"
                 onClick={() =>
                   saveConfig({
                     configId,
@@ -408,7 +406,7 @@ const DesignConfigurator = ({
                 size="sm"
                 className="w-full"
               >
-                Continue
+                Продолжить
                 <ArrowRight className="h-4 w-4 ml-1.5 inline" />
               </Button>
             </div>

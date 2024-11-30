@@ -42,6 +42,7 @@ const ThankYou = () => {
     );
   }
 
+  //@ts-ignore
   const { configuration, billingAddress, shippingAddress, amount } = data;
   const { color } = configuration;
 

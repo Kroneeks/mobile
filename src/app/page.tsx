@@ -94,7 +94,7 @@ export default function Home() {
                   </div>
 
                   <p>
-                    <span className="font-semibold">1.250</span> довольных
+                    <span className="font-semibold">135</span> довольных
                     клиентов
                   </p>
                 </div>
@@ -117,26 +117,27 @@ export default function Home() {
           </div>
         </MaxWidthWrapper>
       </section>
-
-      <section className="py-24 flex justify-center text-center">
-        <div className="flex flex-col">
-          <h3 className="text-xl pb-4 flex gap-2 justify-center items-center">
-            donezsvetlana{" "}
-            <span className="size-5 rounded-full flex flex-row items-center justify-center bg-pink-500">
-              <CheckIcon className="text-white size-4" />
-            </span>
-          </h3>
-          <div className="w-40 h-40 rounded-full overflow-hidden p-1 bg-gradient-to-br from-amber-500 to-pink-500 ">
-            <img
-              src="/avatar.jpg"
-              className="rounded-full border-4 border-white"
-            />
+      {false ? (
+        <section className="py-24 flex justify-center text-center">
+          <div className="flex flex-col">
+            <h3 className="text-xl pb-4 flex gap-2 justify-center items-center">
+              donezsvetlana{" "}
+              <span className="size-5 rounded-full flex flex-row items-center justify-center bg-pink-500">
+                <CheckIcon className="text-white size-4" />
+              </span>
+            </h3>
+            <div className="w-40 h-40 rounded-full overflow-hidden p-1 bg-gradient-to-br from-amber-500 to-pink-500 ">
+              <img
+                src="/avatar.jpg"
+                className="rounded-full border-4 border-white"
+              />
+            </div>
+            <h2 className="text-3xl my-6 font-bold">Svetlana Donets</h2>
+            <p className="text-xl opacity-50">Designer</p>
+            <p className="text-xl">contact: doneze@tut.by</p>
           </div>
-          <h2 className="text-3xl my-6 font-bold">Svetlana Donets</h2>
-          <p className="text-xl opacity-50">Designer</p>
-          <p className="text-xl">contact: doneze@tut.by</p>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       {/*  value proposition section */}
       <section className="bg-slate-100 py-24">
@@ -163,13 +164,13 @@ export default function Home() {
               </div>
               <div className="text-lg leading-8">
                 <p>
-                  &quot;The case feels durable and I even got a compliment on
-                  the design. Had the case for two and a half month now and{" "}
+                  &quot; Рисунок кажется прочным, и я даже получил комплимент по
+                  поводу дизайна. Пользуюсь кружкой уже два месяца, и
+                  изображение на ней&nbsp;
                   <span className="p-0.5 bg-slate-800 text-white">
-                    the image is super clear
+                    осталось четким
                   </span>
-                  , on the case I had before, the image started fading into
-                  yellow-ish color after a couple weeks. Love it.&quot;
+                  . Обожаю ее. &quot;
                 </p>
               </div>
               <div className="flex gap-4 mt-2">
@@ -179,10 +180,10 @@ export default function Home() {
                   alt="user"
                 />
                 <div className="flex flex-col">
-                  <p className="font-semibold">Jonathan</p>
+                  <p className="font-semibold">Валентин</p>
                   <div className="flex gap-1.5 items-center text-zinc-600">
                     <Check className="h-4 w-4 stroke-[3px] text-orange-500" />
-                    <p className="text-sm">Verified Purchase</p>
+                    <p className="text-sm">Подтвержденный отзыв</p>
                   </div>
                 </div>
               </div>
@@ -199,14 +200,13 @@ export default function Home() {
               </div>
               <div className="text-lg leading-8">
                 <p>
-                  &quot;I usually keep my phone together with my keys in my
-                  pocket and that led to some pretty heavy scratchmarks on all
-                  of my last phone cases. This one, besides a barely noticeable
-                  scratch on the corner,{" "}
+                  &quot; Обычно я мою кружки в посудомойчной машине и это
+                  приводило к потускнению изображений. На этой мое изобржение
+                  продолжает постоянно меня радовать. Пользуюсь уже{" "}
                   <span className="p-0.5 bg-slate-800 text-white">
-                    looks brand new after about half a year
-                  </span>
-                  . I dig it.&quot;
+                    больше года
+                  </span>{" "}
+                  и остался полностью доволен. &quot;
                 </p>
               </div>
               <div className="flex gap-4 mt-2">
@@ -216,10 +216,10 @@ export default function Home() {
                   alt="user"
                 />
                 <div className="flex flex-col">
-                  <p className="font-semibold">Josh</p>
+                  <p className="font-semibold">Андрей</p>
                   <div className="flex gap-1.5 items-center text-zinc-600">
                     <Check className="h-4 w-4 stroke-[3px] text-orange-500" />
-                    <p className="text-sm">Verified Purchase</p>
+                    <p className="text-sm">Подтвержденный отзыв</p>
                   </div>
                 </div>
               </div>
@@ -237,9 +237,9 @@ export default function Home() {
           <div className="mb-12 px-6 lg:px-8">
             <div className="mx-auto max-w-4xl sm:text-center">
               <h2 className="order-1 mt-2 tracking-tight text-cetner text-balance !leading-tight font-bold text-5xl md:text-6xl text-gray-900">
-                Отправьте нам свой арт и получите{" "}
+                Отправьте нам свой арт и мы{" "}
                 <span className="relative px-2 bg-orange-500 text-white">
-                  уникальную кружку
+                  перенесем его на кружку
                 </span>{" "}
               </h2>
             </div>

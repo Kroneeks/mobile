@@ -139,11 +139,14 @@ const Page = async () => {
                       {order.shippingAddress?.name}
                     </div>
                     <div className="hidden text-sm text-muted-foreground md:inline">
-                      {order.user.email}
+                      {order.user?.email}
                     </div>
                   </TableCell>
                   <TableCell className="hidden sm:table-cell">
-                    <StatusDropdown id={order.id} orderStatus={order.status} />
+                    <StatusDropdown
+                      id={String(order.id)}
+                      orderStatus={order.status}
+                    />
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
                     {order.createdAt.toLocaleDateString()}

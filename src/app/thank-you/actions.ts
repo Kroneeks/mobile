@@ -13,7 +13,9 @@ export const getPaymentStatus = async ({ orderId }: { orderId: string }) => {
 
   const order = await db.order.findFirst({
     where: {
+      //@ts-ignore
       id: orderId,
+      //@ts-ignore
       userId: user.id,
     },
     include: {

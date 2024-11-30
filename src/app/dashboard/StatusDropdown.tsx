@@ -15,6 +15,7 @@ import { changeOrderStatus } from "./actions";
 import { useRouter } from "next/navigation";
 
 const LABEL_MAP: Record<keyof typeof OrderStatus, string> = {
+  //@ts-ignore
   awaiting_shipment: "Awaiting Shipment",
   fulfilled: "Fulfilled",
   shipped: "Shipped",

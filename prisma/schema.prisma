@@ -8,17 +8,13 @@ datasource db {
 }
 
 enum PhoneModel {
-  iphonex
-  iphone11
-  iphone12
-  iphone13
-  iphone14
-  iphone15
+  cup
+  glass
 }
 
 enum CaseMaterial {
-  silicone
-  polycarbonate
+  onecolor
+  multicolor
 }
 
 enum CaseFinish {
@@ -27,6 +23,7 @@ enum CaseFinish {
 }
 
 enum CaseColor {
+  white
   black
   blue
   rose

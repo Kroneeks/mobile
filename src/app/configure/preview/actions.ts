@@ -30,8 +30,7 @@ export const createCheckoutSession = async ({
 
   let price = BASE_PRICE;
   if (finish === "textured") price += PRODUCT_PRICES.finish.textured;
-  if (material === "polycarbonate")
-    price += PRODUCT_PRICES.material.polycarbonate;
+  if (material === "multicolor") price += PRODUCT_PRICES.material.multicolor;
 
   let order: Order | undefined = undefined;
 
@@ -39,6 +38,7 @@ export const createCheckoutSession = async ({
 
   const existingOrder = await db.order.findFirst({
     where: {
+      //@ts-ignore
       userId: user.id,
       configurationId: configuration.id,
     },
@@ -52,6 +52,7 @@ export const createCheckoutSession = async ({
     order = await db.order.create({
       data: {
         amount: price / 100,
+        //@ts-ignore
         userId: user.id,
         configurationId: configuration.id,
       },
