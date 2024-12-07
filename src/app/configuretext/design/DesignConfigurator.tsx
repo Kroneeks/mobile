@@ -46,6 +46,8 @@ const DesignConfigurator = ({
   const router = useRouter();
   const [userUrl, setUserUrl] = useState(imageUrl);
   const [userText, setUserText] = useState("");
+  const availableFonts = ["Imperial Script", "Great Vibes"];
+  const [selectedFont, setSelectedFont] = useState(availableFonts[0]);
 
   const { mutate: saveConfig, isPending } = useMutation({
     mutationKey: ["save-config"],
@@ -130,8 +132,8 @@ const DesignConfigurator = ({
       ctx!.font = "32pt Arial";
 
       ctx!.fillStyle = "red";
-      ctx?.fillText("Светлана", 20, 20);
-      const dim = ctx?.measureText("Светлана");
+      ctx?.fillText("", 20, 20);
+      const dim = ctx?.measureText("");
       if (ctx && dim) {
         ctx.font = "16pt Serif";
 
@@ -276,8 +278,9 @@ const DesignConfigurator = ({
                   const dataUri = await generate(userText, {
                     bgColor: "transparent",
                     margin: 0,
-                    fontSize: 70,
-                    fontFamily: "Imperial Script",
+                    lineHeight: 200,
+                    fontSize: 100,
+                    fontFamily: selectedFont,
                     customHeight: 0,
                     verticalAlign: "center",
                   });
@@ -288,7 +291,50 @@ const DesignConfigurator = ({
               >
                 <ArrowLeft className="h-4 w-4 mr-1.5 inline" />
                 Нанести текст
+                {selectedFont}
               </Button>
+            </div>
+
+            <div className="relative flex flex-col pt-7 gap-3 w-full">
+              <Label>Шрифт</Label>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    className="w-full justify-between"
+                  >
+                    {selectedFont}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {availableFonts.map((targetFont) => (
+                    <DropdownMenuItem
+                      key={targetFont}
+                      className={cn(
+                        "flex text-sm gap-1 items-center p-1.5 cursor-default hover:bg-zinc-100",
+                        {
+                          "bg-zinc-100": selectedFont === targetFont,
+                        }
+                      )}
+                      onClick={() => {
+                        setSelectedFont(targetFont);
+                      }}
+                    >
+                      <Check
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          selectedFont === targetFont
+                            ? "opacity-100"
+                            : "opacity-0"
+                        )}
+                      />
+                      {targetFont}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
             <div className="w-full h-px bg-zinc-200 my-6" />
