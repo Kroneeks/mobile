@@ -12,7 +12,8 @@ export const getAuthStatus = async () => {
   }
 
   const existingUser = await db.user.findFirst({
-    where: { id: Number(user.id) },
+    //@ts-ignore
+    where: { id: user.id },
   });
 
   if (!existingUser) {
