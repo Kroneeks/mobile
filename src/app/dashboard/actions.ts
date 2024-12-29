@@ -16,3 +16,10 @@ export const changeOrderStatus = async ({
     data: { status: newStatus },
   });
 };
+
+export const deleteOrder = async ({ id }: { id: string }) => {
+  await db.order.delete({
+    //@ts-ignore
+    where: { id },
+  });
+};

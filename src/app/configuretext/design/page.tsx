@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { notFound } from "next/navigation";
 import DesignConfigurator from "./DesignConfigurator";
+import "./globals.css";
 
 interface PageProps {
   searchParams: {
@@ -18,8 +19,8 @@ const Page = async ({ searchParams }: PageProps) => {
   const { id } = await db.configuration.create({
     data: {
       imageUrl: "",
-      height: 200,
-      width: 500,
+      height: 1200,
+      width: 1500,
     },
   });
 

@@ -37,9 +37,12 @@ export const ourFileRouter = {
           },
           data: {
             croppedImageUrl: file.url,
+            imageUrl: file.url,
+            height: height ?? 500,
+            width: width ?? 500,
           },
         });
-        return { configId: updatedConfiguration.id };
+        // return { configId: updatedConfiguration.id };
       }
     }),
 } satisfies FileRouter;

@@ -3,6 +3,7 @@ import MaxWidthWrapper from "./MaxWidthWrapper";
 import { Button, buttonVariants } from "./ui/button";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { toast, useToast } from "./ui/use-toast";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
@@ -41,10 +42,21 @@ const Navbar = async () => {
                   </Link>
                 ) : null}
                 <Link
-                  href="/configure/upload"
+                  href="/configuretext/design"
                   className={buttonVariants({
                     size: "lg",
                     className: "hidden sm:flex items-center gap-1",
+                  })}
+                >
+                  Создать кружку с именем
+                  <ArrowRight className="ml-1.5 h-5 w-5" />
+                </Link>
+                <Link
+                  href="#"
+                  className={buttonVariants({
+                    size: "lg",
+                    className:
+                      "hidden sm:flex items-center gap-1 cursor-default opacity-70",
                   })}
                 >
                   Создать кружку

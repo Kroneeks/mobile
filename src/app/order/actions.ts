@@ -3,11 +3,19 @@
 import { db } from "@/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-export const getPaymentStatus = async ({ orderId }: { orderId: string }) => {
+export const getPaymentStatus = async ({
+  orderId,
+  userId,
+}: {
+  orderId: string;
+  userId: string;
+}) => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user?.id || !user.email) {
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+
+  if (!user?.id || !user.email || user.email !== ADMIN_EMAIL) {
     throw new Error("You need to be logged in to view this page.");
   }
 
@@ -16,7 +24,7 @@ export const getPaymentStatus = async ({ orderId }: { orderId: string }) => {
       //@ts-ignore
       id: orderId,
       //@ts-ignore
-      userId: user.id,
+      userId,
     },
     include: {
       billingAddress: true,

@@ -20,6 +20,10 @@ import { formatPrice } from "@/lib/utils";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { notFound } from "next/navigation";
 import StatusDropdown from "./StatusDropdown";
+import Link from "next/link";
+import { Delete, Image } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import DeleteOrder from "./DeleteOrder";
 
 const Page = async () => {
   const { getUser } = getKindeServerSession();
@@ -33,7 +37,6 @@ const Page = async () => {
 
   const orders = await db.order.findMany({
     where: {
-      isPaid: true,
       createdAt: {
         gte: new Date(new Date().setDate(new Date().getDate() - 7)),
       },
@@ -44,12 +47,12 @@ const Page = async () => {
     include: {
       user: true,
       shippingAddress: true,
+      configuration: true,
     },
   });
 
   const lastWeekSum = await db.order.aggregate({
     where: {
-      isPaid: true,
       createdAt: {
         gte: new Date(new Date().setDate(new Date().getDate() - 7)),
       },
@@ -61,7 +64,6 @@ const Page = async () => {
 
   const lastMonthSum = await db.order.aggregate({
     where: {
-      isPaid: true,
       createdAt: {
         gte: new Date(new Date().setDate(new Date().getDate() - 30)),
       },
@@ -81,14 +83,14 @@ const Page = async () => {
           <div className="grid gap-4 sm:grid-cols-2">
             <Card>
               <CardHeader className="pb-2">
-                <CardDescription>Last Week</CardDescription>
+                <CardDescription>Текущая неделя</CardDescription>
                 <CardTitle className="text-4xl">
                   {formatPrice(lastWeekSum._sum.amount ?? 0)}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-sm text-muted-foreground">
-                  of {formatPrice(WEEKLY_GOAL)} goal
+                  от {formatPrice(WEEKLY_GOAL)} цели
                 </div>
               </CardContent>
               <CardFooter>
@@ -99,14 +101,14 @@ const Page = async () => {
             </Card>
             <Card>
               <CardHeader className="pb-2">
-                <CardDescription>Last Month</CardDescription>
+                <CardDescription>Текущий месяц</CardDescription>
                 <CardTitle className="text-4xl">
                   {formatPrice(lastMonthSum._sum.amount ?? 0)}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-sm text-muted-foreground">
-                  of {formatPrice(MONTHLY_GOAL)} goal
+                  от {formatPrice(MONTHLY_GOAL)} цели
                 </div>
               </CardContent>
               <CardFooter>
@@ -117,23 +119,37 @@ const Page = async () => {
             </Card>
           </div>
 
-          <h1 className="text-4xl font-bold tracking-tight">Incoming orders</h1>
+          <h1 className="text-4xl font-bold tracking-tight">Заказы</h1>
 
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Customer</TableHead>
-                <TableHead className="hidden sm:table-cell">Status</TableHead>
+                <TableHead className="text-left">Просмотр</TableHead>
+                <TableHead>Заказчик</TableHead>
+                <TableHead className="hidden sm:table-cell">Статус</TableHead>
                 <TableHead className="hidden sm:table-cell">
-                  Purchase date
+                  Дата поступления заявки
                 </TableHead>
-                <TableHead className="text-right">Amount</TableHead>
+                <TableHead className="text-right">Стоимость</TableHead>
+                <TableHead className="text-right">Удалить</TableHead>
               </TableRow>
             </TableHeader>
 
             <TableBody>
               {orders.map((order) => (
                 <TableRow key={order.id} className="bg-accent">
+                  <TableCell className="text-left">
+                    <Link
+                      className={buttonVariants({
+                        size: "sm",
+                        className: "px-2 py-5",
+                      })}
+                      target="_blank"
+                      href={`${process.env.NEXT_PUBLIC_SERVER_URL}/order?orderId=${order.id}&userId=${order.userId}`}
+                    >
+                      <Image className="h-5 w-5" />
+                    </Link>
+                  </TableCell>
                   <TableCell>
                     <div className="font-medium">
                       {order.shippingAddress?.name}
@@ -153,6 +169,9 @@ const Page = async () => {
                   </TableCell>
                   <TableCell className="text-right">
                     {formatPrice(order.amount)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <DeleteOrder id={order.id} />
                   </TableCell>
                 </TableRow>
               ))}

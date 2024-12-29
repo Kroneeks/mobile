@@ -16,7 +16,13 @@ import { useToast } from "@/components/ui/use-toast";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import LoginModal from "@/components/LoginModal";
 
-const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
+const DesignPreview = ({
+  configId,
+  configuration,
+}: {
+  configId: string;
+  configuration: Configuration;
+}) => {
   const router = useRouter();
   const { toast } = useToast();
   const { id } = configuration;
@@ -48,7 +54,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
       if (url) router.push(url);
       else throw new Error("Unable to retrieve payment URL.");
     },
-    onError: () => {
+    onError: (e) => {
       toast({
         title: "Something went wrong",
         description: "There was an error on our end. Please try again.",
@@ -57,6 +63,9 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     },
   });
 
+  const saveConfig = () => {
+    router.push(`/configuretext/manage?id=${configId}`);
+  };
   const handleCheckout = () => {
     if (user) {
       // create payment session
@@ -87,6 +96,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
           <Phone
             className={cn(`bg-${tw}`, "max-w-[150px] md:max-w-full")}
             imgSrc={configuration.croppedImageUrl!}
+            color={color as string}
           />
         </div>
         <div className="mt-6 sm:col-span-9 sm:mt-0 md:row-end-1">
@@ -94,7 +104,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
             {modelLabel}
           </h3>
           <div className="mt-3 flex items-center gap-1.5 text-base">
-            <Check className="h-4 w-4 text-green-500" />
+            <Check className="h-4 w-4 text-orange-500" />
             Ваш арт будет проверен и мы постараемся его реализовать
           </div>
         </div>
@@ -162,7 +172,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
             <div className="mt-8 flex justify-end pb-12">
               <Button
-                onClick={() => handleCheckout()}
+                onClick={() => saveConfig()}
                 className="px-4 sm:px-6 lg:px-8"
               >
                 Отправить <ArrowRight className="h-4 w-4 ml-1.5 inline" />{" "}

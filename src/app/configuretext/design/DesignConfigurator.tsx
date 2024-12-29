@@ -7,7 +7,7 @@ import { cn, formatPrice } from "@/lib/utils";
 import NextImage from "next/image";
 import { Rnd } from "react-rnd";
 import { RadioGroup, Input } from "@headlessui/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   COLORS,
   FINISHES,
@@ -22,14 +22,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Check, ChevronsUpDown } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  ChevronsUpDown,
+  Loader,
+} from "lucide-react";
 import { BASE_PRICE } from "@/config/products";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { saveConfig as _saveConfig, SaveConfigArgs } from "./actions";
+import { generate } from "@/lib/textToImage";
 import { useRouter } from "next/navigation";
-import { generate } from "../../api/textToImage/textToImage";
 
 interface DesignConfiguratorProps {
   configId: string;
@@ -48,6 +54,15 @@ const DesignConfigurator = ({
   const [userText, setUserText] = useState("");
   const availableFonts = ["Imperial Script", "Great Vibes"];
   const [selectedFont, setSelectedFont] = useState(availableFonts[0]);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  const phoneCaseRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const messageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    generateImageByText();
+  }, []);
 
   const { mutate: saveConfig, isPending } = useMutation({
     mutationKey: ["save-config"],
@@ -62,7 +77,7 @@ const DesignConfigurator = ({
       });
     },
     onSuccess: () => {
-      router.push(`/configure/preview?id=${configId}`);
+      router.push(`/configuretext/preview?id=${configId}`);
     },
   });
 
@@ -78,18 +93,33 @@ const DesignConfigurator = ({
     finish: FINISHES.options[0],
   });
 
+  const generateImageByText = async (text: string = "Floristby") => {
+    const dataUri = await generate(text, {
+      bgColor: "transparent",
+      margin: 0,
+      fontSize: 100,
+      fontFamily: selectedFont,
+      customHeight: 0,
+      verticalAlign: "center",
+      textColor: options.color.value !== "white" ? "#fff" : "#000",
+    });
+    setUserUrl(dataUri);
+    setIsImageLoaded(true);
+  };
+
+  useEffect(() => {
+    userText.length ? generateImageByText(userText) : generateImageByText();
+  }, [options]);
+
   const [renderedDimension, setRenderedDimension] = useState({
-    width: imageDimensions.width / 4,
-    height: imageDimensions.height / 4,
+    width: 294,
+    height: 100,
   });
 
   const [renderedPosition, setRenderedPosition] = useState({
     x: 150,
     y: 205,
   });
-
-  const phoneCaseRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const { startUpload } = useUploadThing("imageUploader");
 
@@ -105,8 +135,11 @@ const DesignConfigurator = ({
       const { left: containerLeft, top: containerTop } =
         containerRef.current!.getBoundingClientRect();
 
+      const { left: messageLeft, top: messageTop } =
+        messageRef.current!.getBoundingClientRect();
+
       const leftOffset = caseLeft - containerLeft;
-      const topOffset = caseTop - containerTop;
+      const topOffset = caseTop - containerTop - 50;
 
       const actualX = renderedPosition.x - leftOffset;
       const actualY = renderedPosition.y - topOffset;
@@ -118,39 +151,22 @@ const DesignConfigurator = ({
 
       const userImage = new Image();
       userImage.crossOrigin = "anonymous";
-      userImage.src = imageUrl;
+      userImage.src = userUrl;
       await new Promise((resolve) => (userImage.onload = resolve));
 
-      // ctx?.drawImage(
-      // userImage,
-      // actualX,
-      // actualY,
-      // renderedDimension.width,
-      // renderedDimension.height
-      // );
+      ctx?.drawImage(
+        userImage,
+        actualX,
+        actualY,
+        renderedDimension.width,
+        renderedDimension.height
+      );
       ctx!.textBaseline = "top";
       ctx!.font = "32pt Arial";
 
       ctx!.fillStyle = "red";
       ctx?.fillText("", 20, 20);
       const dim = ctx?.measureText("");
-      if (ctx && dim) {
-        ctx.font = "16pt Serif";
-
-        ctx.fillStyle = "orange";
-        ctx.fillText(
-          [
-            "width:",
-            Math.round(dim.width),
-            "px,",
-            "height:",
-            Math.round(dim.emHeightAscent || 0),
-            "px",
-          ].join(" "),
-          20,
-          80
-        );
-      }
 
       const base64 = canvas.toDataURL();
       const base64Data = base64.split(",")[1];
@@ -185,25 +201,24 @@ const DesignConfigurator = ({
         ref={containerRef}
         className="relative h-[37.5rem] overflow-hidden col-span-2 w-full max-w-4xl flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
       >
-        <div className="relative w-60 bg-opacity-50 pointer-events-none aspect-[1431/1444]">
+        <div className="relative w-96 bg-opacity-50 pointer-events-none aspect-[1431/1444]">
           <AspectRatio
             ref={phoneCaseRef}
             ratio={1431 / 1444}
-            className="pointer-events-none relative z-50 aspect-[1431/1444] w-full"
-          >
-            <NextImage
-              fill
-              alt="phone image"
-              src="/cup-template-white-edges.png"
-              className="pointer-events-none z-50 select-none"
-            />
-          </AspectRatio>
-          <div className="absolute z-40 inset-0 left-[13px] top-[25px] right-[85px] bottom-[25px] rounded-b-large rounded-[8px] shadow-[0_0_0_99999px_rgba(229,231,235,0.6)]" />
+            className="pointer-events-none w-3/5 relative left-64 z-50  aspect-[1431/1444]"
+          ></AspectRatio>
+          <div className="absolute z-40 inset-0 left-[13px] top-[25px] right-[135px] bottom-[25px] rounded-b-large rounded-[8px] shadow-[0_0_0_99999px_rgba(229,231,235,0.6)]" />
           <div
             className={cn(
               "absolute inset-0 left-[13px] top-[25px] right-[85px] bottom-[25px] rounded-[4px]  rounded-b-large",
               `bg-${options.color.tw}`
             )}
+          />
+          <NextImage
+            fill
+            alt="phone image"
+            src={`/cup-template-${options.color.value}.png`}
+            className="pointer-events-none z-50 select-none"
           />
         </div>
 
@@ -211,11 +226,9 @@ const DesignConfigurator = ({
           default={{
             x: 150,
             y: 205,
-            height: imageDimensions.height / 4,
-            width: imageDimensions.width / 4,
+            height: imageDimensions.height / 5,
+            width: imageDimensions.width / 5,
           }}
-          minHeight={"100px"}
-          minWidth={"100px"}
           onResizeStop={(_, __, ref, ___, { x, y }) => {
             setRenderedDimension({
               height: parseInt(ref.style.height.slice(0, -2)),
@@ -228,7 +241,7 @@ const DesignConfigurator = ({
             const { x, y } = data;
             setRenderedPosition({ x, y });
           }}
-          className="absolute z-20 border-[3px] border-primary"
+          className="relative !h-fit z-50 border-[3px] border-primary"
           lockAspectRatio
           resizeHandleComponent={{
             bottomRight: <HandleComponent />,
@@ -237,13 +250,19 @@ const DesignConfigurator = ({
             topLeft: <HandleComponent />,
           }}
         >
-          <div className="relative w-full h-full">
-            <NextImage
-              src={userUrl}
-              fill
-              alt="your image"
-              className="pointer-events-none w-fit h-fit"
-            />
+          <div className="relative w-full h-full" ref={messageRef}>
+            {isImageLoaded ? (
+              <NextImage
+                src={userUrl}
+                fill
+                alt="your image"
+                className="!relative pointer-events-none w-fit !h-fit"
+              />
+            ) : (
+              <>
+                <Loader />
+              </>
+            )}
           </div>
         </Rnd>
       </div>
@@ -274,24 +293,12 @@ const DesignConfigurator = ({
                 isLoading={isPending}
                 disabled={isPending}
                 loadingText="Генерация"
-                onClick={async () => {
-                  const dataUri = await generate(userText, {
-                    bgColor: "transparent",
-                    margin: 0,
-                    lineHeight: 200,
-                    fontSize: 100,
-                    fontFamily: selectedFont,
-                    customHeight: 0,
-                    verticalAlign: "center",
-                  });
-                  setUserUrl(dataUri ?? "");
-                }}
+                onClick={() => userText.length && generateImageByText(userText)}
                 size="icon"
                 className="w-full"
               >
                 <ArrowLeft className="h-4 w-4 mr-1.5 inline" />
                 Нанести текст
-                {selectedFont}
               </Button>
             </div>
 
@@ -348,6 +355,9 @@ const DesignConfigurator = ({
                       ...prev,
                       color: val,
                     }));
+                    // userText.length
+                    // ? generateImageByText(userText)
+                    // : generateImageByText();
                   }}
                 >
                   <Label>Цвет кружки: {options.color.label}</Label>
@@ -501,15 +511,16 @@ const DesignConfigurator = ({
                 isLoading={isPending}
                 disabled={isPending}
                 loadingText="Сохранение"
-                onClick={() =>
-                  saveConfig({
+                onClick={async () => {
+                  saveConfiguration();
+                  await saveConfig({
                     configId,
                     color: options.color.value,
                     finish: options.finish.value,
                     material: options.material.value,
                     model: options.model.value,
-                  })
-                }
+                  });
+                }}
                 size="sm"
                 className="w-full"
               >

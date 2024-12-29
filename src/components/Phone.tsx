@@ -3,10 +3,15 @@ import { HTMLAttributes } from "react";
 
 interface PhoneProps extends HTMLAttributes<HTMLDivElement> {
   imgSrc: string;
-  dark?: boolean;
+  color?: string;
 }
 
-const Phone = ({ imgSrc, className, dark = false, ...props }: PhoneProps) => {
+const Phone = ({
+  imgSrc,
+  className,
+  color = "white",
+  ...props
+}: PhoneProps) => {
   return (
     <div
       className={cn(
@@ -16,12 +21,12 @@ const Phone = ({ imgSrc, className, dark = false, ...props }: PhoneProps) => {
       {...props}
     >
       <img
-        src={dark ? "/phone-template-dark-edges.png" : "/cup-template-1.png"}
+        src={`/cup-template-${color}.png`}
         className="pointer-events-none z-50 select-none"
         alt="phone image"
       />
 
-      <div className="absolute -z-10 inset-0">
+      <div className="absolute z-10 inset-0 w-3/5 h-0 left-[6%]">
         <img
           className="object-cover min-w-full min-h-full"
           src={imgSrc}

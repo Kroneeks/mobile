@@ -1,4 +1,4 @@
-import { createCanvas, registerFont, Canvas } from "canvas";
+import { createCanvas, Canvas } from "canvas";
 import {
   GenerateFunction,
   ComputedOptions,
@@ -21,6 +21,7 @@ const defaults = {
   verticalAlign: "top",
   extensions: [],
 };
+let ImageWidth = 0;
 
 const createTextData = (
   text: string,
@@ -40,15 +41,13 @@ const createTextData = (
   } = config;
 
   // Register a custom font
-  if (fontPath) {
-    registerFont(fontPath, { family: fontFamily });
-  }
 
   // Use the supplied canvas (which should have a suitable width and height)
   // for the final image
   // OR
   // create a temporary canvas just for measuring how long the canvas needs to be
   const textCanvas = canvas || createCanvas(maxWidth, 100);
+  console.log(textCanvas);
   const textContext = textCanvas.getContext("2d");
 
   // set the text alignment and start position
@@ -103,6 +102,7 @@ const createTextData = (
 
     // if the line is marked as starting with a newline
     // OR if the line is too long, add a newline
+    ImageWidth = testLineWidth + 15;
     if (addNewLines.indexOf(n) > -1 || (testLineWidth > maxWidth && n > 0)) {
       // if the line exceeded the width with one additional word
       // just paint the line without the word
@@ -130,7 +130,7 @@ const createTextData = (
 
   return {
     textHeight: height,
-    textData: textContext.getImageData(0, 0, maxWidth, height),
+    textData: textContext.getImageData(0, 0, ImageWidth, height),
   };
 };
 
@@ -143,7 +143,7 @@ const createImageCanvas = (content: string, conf: ComputedOptions) => {
     content,
     // max width of text itself must be the image max width reduced by left-right margins
     <ComputedOptions>{
-      maxWidth: conf.maxWidth - conf.margin * 2,
+      maxWidth: ImageWidth,
       fontSize: conf.fontSize,
       lineHeight: conf.lineHeight,
       bgColor: conf.bgColor,
@@ -166,13 +166,16 @@ const createImageCanvas = (content: string, conf: ComputedOptions) => {
   // so let's create the final canvas with the given height and width
   // and pass that to createTextData so we can get the text data from it
   const height = conf.customHeight || textHeightWithMargins;
-  const canvas = createCanvas(conf.fontSize * content.length * 0.5, height);
+  const canvas = createCanvas(
+    /*conf.fontSize * content.length * 0.3*/ ImageWidth,
+    height
+  );
 
   const { textData } = createTextData(
     content,
     // max width of text itself must be the image max width reduced by left-right margins
     <ComputedOptions>{
-      maxWidth: conf.maxWidth - conf.margin * 2,
+      maxWidth: ImageWidth /*conf.maxWidth - conf.margin * 2*/,
       fontSize: conf.fontSize,
       lineHeight: conf.lineHeight,
       bgColor: conf.bgColor,
@@ -188,10 +191,15 @@ const createImageCanvas = (content: string, conf: ComputedOptions) => {
 
   // the canvas will have the text from the first pass on it,
   // so start by clearing the whole canvas and start from a clean slate
-  ctx.clearRect(0, 0, conf.maxWidth - conf.margin * 2, canvas.height);
+  ctx.clearRect(
+    0,
+    0,
+    ImageWidth /*conf.maxWidth - conf.margin * 2*/,
+    canvas.height
+  );
   ctx.globalAlpha = 1;
   ctx.fillStyle = conf.bgColor;
-  ctx.fillRect(0, 0, conf.maxWidth - conf.margin * 2, height);
+  ctx.fillRect(0, 0, ImageWidth /*conf.maxWidth - conf.margin * 2*/, height);
 
   const textX = conf.margin;
   let textY = conf.margin;

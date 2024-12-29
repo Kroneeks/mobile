@@ -16,9 +16,9 @@ import { useRouter } from "next/navigation";
 
 const LABEL_MAP: Record<keyof typeof OrderStatus, string> = {
   //@ts-ignore
-  awaiting_shipment: "Awaiting Shipment",
-  fulfilled: "Fulfilled",
-  shipped: "Shipped",
+  awaiting_shipment: "Ожидание отправки",
+  fulfilled: "Выполнено",
+  shipped: "Отправлено",
 };
 
 const StatusDropdown = ({
