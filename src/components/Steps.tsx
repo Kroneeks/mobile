@@ -15,9 +15,14 @@ const STEPS = [
     url: "/design",
   },
   {
-    name: "Этап 3: Заключение",
+    name: "Этап 3: Оценка",
     description: "Оцените готовый вариант",
     url: "/preview",
+  },
+  {
+    name: "Этап 4: Доставка и оплата",
+    description: "Укажите данные для связи",
+    url: "/manage",
   },
 ];
 

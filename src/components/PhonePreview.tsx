@@ -49,7 +49,7 @@ const PhonePreview = ({
       >
         <img
           width={renderedDimensions.width / (3000 / 637)}
-          className={cn("relative z-20 w-[64%]")}
+          className={cn(`relative z-20 w-[64%]`)}
           src={croppedImageUrl}
         />
 

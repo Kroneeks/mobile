@@ -6,11 +6,9 @@ import { BASE_PRICE, PRODUCT_PRICES } from "@/config/products";
 import { cn, formatPrice } from "@/lib/utils";
 import { COLORS, MODELS } from "@/validators/option-validator";
 import { Configuration } from "@prisma/client";
-import { useMutation } from "@tanstack/react-query";
 import { ArrowRight, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import Confetti from "react-dom-confetti";
-import { createCheckoutSession } from "./actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
@@ -47,34 +45,8 @@ const DesignPreview = ({
     totalPrice += PRODUCT_PRICES.material.multicolor;
   if (finish === "textured") totalPrice += PRODUCT_PRICES.finish.textured;
 
-  const { mutate: createPaymentSession } = useMutation({
-    mutationKey: ["get-checkout-session"],
-    mutationFn: createCheckoutSession,
-    onSuccess: ({ url }) => {
-      if (url) router.push(url);
-      else throw new Error("Unable to retrieve payment URL.");
-    },
-    onError: (e) => {
-      toast({
-        title: "Something went wrong",
-        description: "There was an error on our end. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
   const saveConfig = () => {
     router.push(`/configuretext/manage?id=${configId}`);
-  };
-  const handleCheckout = () => {
-    if (user) {
-      // create payment session
-      createPaymentSession({ configId: id });
-    } else {
-      // need to log in
-      localStorage.setItem("configurationId", id);
-      setIsLoginModalOpen(true);
-    }
   };
 
   return (

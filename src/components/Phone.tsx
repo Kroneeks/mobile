@@ -3,6 +3,7 @@ import { HTMLAttributes } from "react";
 
 interface PhoneProps extends HTMLAttributes<HTMLDivElement> {
   imgSrc: string;
+  configureImg?: boolean;
   color?: string;
 }
 
@@ -10,6 +11,7 @@ const Phone = ({
   imgSrc,
   className,
   color = "white",
+  configureImg = false,
   ...props
 }: PhoneProps) => {
   return (
@@ -28,7 +30,7 @@ const Phone = ({
 
       <div className="absolute z-10 inset-0 w-3/5 h-0 left-[6%]">
         <img
-          className="object-cover min-w-full min-h-full"
+          className={`object-cover min-w-full min-h-full ${configureImg && ""}`}
           src={imgSrc}
           alt="overlaying phone image"
         />

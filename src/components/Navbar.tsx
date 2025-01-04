@@ -52,7 +52,7 @@ const Navbar = async () => {
                   <ArrowRight className="ml-1.5 h-5 w-5" />
                 </Link>
                 <Link
-                  href="#"
+                  href="/configure/upload"
                   className={buttonVariants({
                     size: "lg",
                     className:

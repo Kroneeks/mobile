@@ -74,8 +74,8 @@ const DesignConfigurator = ({
   });
 
   const [renderedDimension, setRenderedDimension] = useState({
-    width: imageDimensions.width / 4,
-    height: imageDimensions.height / 4,
+    width: imageDimensions.width / 2,
+    height: imageDimensions.height / 2,
   });
 
   const [renderedPosition, setRenderedPosition] = useState({
@@ -100,15 +100,15 @@ const DesignConfigurator = ({
       const { left: containerLeft, top: containerTop } =
         containerRef.current!.getBoundingClientRect();
 
-      const leftOffset = caseLeft - containerLeft;
-      const topOffset = caseTop - containerTop;
+      const leftOffset = caseLeft - containerLeft + 20;
+      const topOffset = caseTop - containerTop + 100;
 
       const actualX = renderedPosition.x - leftOffset;
-      const actualY = renderedPosition.y - topOffset;
+      const actualY = renderedPosition.y - topOffset + 100;
 
       const canvas = document.createElement("canvas");
       canvas.width = width;
-      canvas.height = height;
+      canvas.height = height + 100;
       const ctx = canvas.getContext("2d");
 
       const userImage = new Image();
@@ -157,25 +157,24 @@ const DesignConfigurator = ({
         ref={containerRef}
         className="relative h-[37.5rem] overflow-hidden col-span-2 w-full max-w-4xl flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
       >
-        <div className="relative w-60 bg-opacity-50 pointer-events-none aspect-[1431/1444]">
+        <div className="relative w-96 bg-opacity-50 pointer-events-none aspect-[1431/1444]">
           <AspectRatio
             ref={phoneCaseRef}
             ratio={1431 / 1444}
-            className="pointer-events-none relative z-50 aspect-[1431/1444] w-full"
-          >
-            <NextImage
-              fill
-              alt="phone image"
-              src="/cup-template-white-edges.png"
-              className="pointer-events-none z-50 select-none"
-            />
-          </AspectRatio>
-          <div className="absolute z-40 inset-0 left-[13px] top-[25px] right-[85px] bottom-[25px] rounded-b-large rounded-[8px] shadow-[0_0_0_99999px_rgba(229,231,235,0.6)]" />
+            className="pointer-events-none w-3/5 relative left-64 z-50  aspect-[1431/1444]"
+          ></AspectRatio>
+          <div className="absolute z-40 inset-0 left-[13px] top-[25px] right-[135px] bottom-[25px] rounded-b-large rounded-[8px] shadow-[0_0_0_99999px_rgba(229,231,235,0.6)]" />
           <div
             className={cn(
               "absolute inset-0 left-[13px] top-[25px] right-[85px] bottom-[25px] rounded-[4px]  rounded-b-large",
               `bg-${options.color.tw}`
             )}
+          />
+          <NextImage
+            fill
+            alt="phone image"
+            src={`/cup-template-${options.color.value}.png`}
+            className="pointer-events-none z-50 select-none"
           />
         </div>
 
@@ -183,8 +182,8 @@ const DesignConfigurator = ({
           default={{
             x: 150,
             y: 205,
-            height: imageDimensions.height / 6,
-            width: imageDimensions.width / 6,
+            height: imageDimensions.height / 2,
+            width: imageDimensions.width / 2,
           }}
           onResizeStop={(_, __, ref, ___, { x, y }) => {
             setRenderedDimension({
@@ -198,7 +197,7 @@ const DesignConfigurator = ({
             const { x, y } = data;
             setRenderedPosition({ x, y });
           }}
-          className="absolute z-20 border-[3px] border-primary"
+          className="relative !h-fit z-50 border-[3px] border-primary"
           lockAspectRatio
           resizeHandleComponent={{
             bottomRight: <HandleComponent />,
@@ -212,7 +211,7 @@ const DesignConfigurator = ({
               src={imageUrl}
               fill
               alt="your image"
-              className="pointer-events-none"
+              className={"!relative w-fit !h-fit pointer-events-none"}
             />
           </div>
         </Rnd>
