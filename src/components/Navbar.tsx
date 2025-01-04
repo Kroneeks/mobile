@@ -42,21 +42,10 @@ const Navbar = async () => {
                   </Link>
                 ) : null}
                 <Link
-                  href="/configuretext/design"
+                  href="/choose"
                   className={buttonVariants({
                     size: "lg",
                     className: "hidden sm:flex items-center gap-1",
-                  })}
-                >
-                  Создать кружку с именем
-                  <ArrowRight className="ml-1.5 h-5 w-5" />
-                </Link>
-                <Link
-                  href="/configure/upload"
-                  className={buttonVariants({
-                    size: "lg",
-                    className:
-                      "hidden sm:flex items-center gap-1 cursor-default opacity-70",
                   })}
                 >
                   Создать кружку

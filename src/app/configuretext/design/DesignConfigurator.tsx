@@ -139,7 +139,7 @@ const DesignConfigurator = ({
         messageRef.current!.getBoundingClientRect();
 
       const leftOffset = caseLeft - containerLeft;
-      const topOffset = caseTop - containerTop - 50;
+      const topOffset = caseTop - containerTop;
 
       const actualX = renderedPosition.x - leftOffset;
       const actualY = renderedPosition.y - topOffset;

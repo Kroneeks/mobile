@@ -101,14 +101,14 @@ const DesignConfigurator = ({
         containerRef.current!.getBoundingClientRect();
 
       const leftOffset = caseLeft - containerLeft + 20;
-      const topOffset = caseTop - containerTop + 100;
+      const topOffset = caseTop - containerTop;
 
       const actualX = renderedPosition.x - leftOffset;
-      const actualY = renderedPosition.y - topOffset + 100;
+      const actualY = renderedPosition.y - topOffset * 1.3;
 
       const canvas = document.createElement("canvas");
       canvas.width = width;
-      canvas.height = height + 100;
+      canvas.height = height + 80;
       const ctx = canvas.getContext("2d");
 
       const userImage = new Image();
