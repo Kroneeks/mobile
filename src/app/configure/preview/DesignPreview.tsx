@@ -61,6 +61,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
             configureImg={true}
             className={cn(`bg-${tw}`, "max-w-[150px] md:max-w-full")}
             imgSrc={configuration.croppedImageUrl!}
+            color={color as string}
           />
         </div>
         <div className="mt-6 sm:col-span-9 sm:mt-0 md:row-end-1">

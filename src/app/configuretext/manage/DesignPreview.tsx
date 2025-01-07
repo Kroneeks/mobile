@@ -16,6 +16,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import LoginModal from "@/components/LoginModal";
 import { Field, Input, Label } from "@headlessui/react";
+import PhoneInput from "@/components/phone-input";
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   const router = useRouter();
@@ -23,13 +24,18 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
   const { id } = configuration;
   const { user } = useKindeBrowserClient();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
 
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
 
-  useEffect(() => setShowConfetti(true));
+  useEffect(() => {
+    setShowConfetti(true);
+  }, []);
+
+  useEffect(() => {
+    setUserName(user?.given_name || "");
+  }, [user]);
 
   const { color, model, finish, material } = configuration;
   const tw = COLORS.find(
@@ -86,40 +92,56 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
       <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
 
-      <form>
-        <Field>
-          <Label>Эл.почта</Label>
-          <Input
-            name="full_name"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+      <article className="bg-gray-100 px-10 py-5 rounded-3xl w-fit mt-10 relative left-1/2 -translate-x-1/2">
+        <form className="flex flex-col items-center gap-2">
+          <Field className="flex flex-col w-fit min-w-56">
+            <Label className="text-gray-500">Эл.почта</Label>
+            <Input
+              name="full_name"
+              value={user?.email || ""}
+              disabled
+              className="py-2 px-4 rounded-lg"
+            />
+          </Field>
+          <Field className="flex flex-col w-fit min-w-56">
+            <Label className="text-gray-500">Имя</Label>
+            <Input
+              name="full_name"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="p-2 rounded-lg"
+            />
+          </Field>
+          <Field className="flex flex-col w-fit min-w-56">
+            <Label className="text-gray-500">Номер телефона</Label>
+            <Input
+              name="full_name"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="p-2 rounded-lg"
+            />
+          </Field>
+          <PhoneInput
+            country={"by"}
+            onlyCountries={["by"]}
+            countryCodeEditable={false}
           />
-        </Field>
-        <Field>
-          <Label>Имя</Label>
-          <Input
-            name="full_name"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-        </Field>
-        <Field>
-          <Label>Номер телефона</Label>
-          <Input
-            name="full_name"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </Field>
-      </form>
-      <div className="mt-8 flex justify-end pb-12">
-        <Button
-          onClick={() => handleCheckout()}
-          className="px-4 sm:px-6 lg:px-8"
-        >
-          Отправить <ArrowRight className="h-4 w-4 ml-1.5 inline" />{" "}
-        </Button>
-      </div>
+        </form>
+
+        <div className="mt-6 flex justify-center">
+          <Button
+            onClick={() => handleCheckout()}
+            className="px-4 sm:px-6 lg:px-8"
+          >
+            Отправить
+          </Button>
+        </div>
+        <span className="inline-block max-w-72 leading-5 text-center mt-2 text-gray-500">
+          Нажимая на кнопку, вы соглашаетесь
+          <br />
+          на обработку ваших персональных данных
+        </span>
+      </article>
     </>
   );
 };

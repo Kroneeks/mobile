@@ -86,40 +86,47 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
       <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
 
-      <form>
-        <Field>
-          <Label>Эл.почта</Label>
-          <Input
-            name="full_name"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Field>
-        <Field>
-          <Label>Имя</Label>
-          <Input
-            name="full_name"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-        </Field>
-        <Field>
-          <Label>Номер телефона</Label>
-          <Input
-            name="full_name"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </Field>
-      </form>
-      <div className="mt-8 flex justify-end pb-12">
-        <Button
-          onClick={() => handleCheckout()}
-          className="px-4 sm:px-6 lg:px-8"
-        >
-          Отправить <ArrowRight className="h-4 w-4 ml-1.5 inline" />{" "}
-        </Button>
-      </div>
+      <article className="bg-gray-100 px-10 py-5 rounded-3xl w-fit mt-10 relative left-1/2 -translate-x-1/2">
+        <form className="flex flex-col items-center gap-2">
+          <Field className="flex flex-col w-fit min-w-56">
+            <Label className="text-gray-500">Эл.почта</Label>
+            <Input
+              name="full_name"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="py-2 px-4 rounded-lg"
+            />
+          </Field>
+          <Field className="flex flex-col w-fit min-w-56">
+            <Label className="text-gray-500">Имя</Label>
+            <Input
+              name="full_name"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="p-2 rounded-lg"
+            />
+          </Field>
+          <Field className="flex flex-col w-fit min-w-56">
+            <Label className="text-gray-500">Номер телефона</Label>
+            <Input
+              name="full_name"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="p-2 rounded-lg"
+            />
+          </Field>
+        </form>
+
+        <div className="mt-5 flex justify-center">
+          <Button
+            onClick={() => handleCheckout()}
+            className="px-4 sm:px-6 lg:px-8"
+          >
+            Отправить
+          </Button>
+        </div>
+        <span>Нажимая на кнопку, вы соглашаетесь на обработку ваших персональных данных</span>
+      </article>
     </>
   );
 };

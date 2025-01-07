@@ -268,49 +268,6 @@ const DesignConfigurator = ({
                   </div>
                 </RadioGroup>
 
-                <div className="relative flex flex-col gap-3 w-full">
-                  <Label>Тип посуды</Label>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className="w-full justify-between"
-                      >
-                        {options.model.label}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      {MODELS.options.map((model) => (
-                        <DropdownMenuItem
-                          key={model.label}
-                          className={cn(
-                            "flex text-sm gap-1 items-center p-1.5 cursor-default hover:bg-zinc-100",
-                            {
-                              "bg-zinc-100":
-                                model.label === options.model.label,
-                            }
-                          )}
-                          onClick={() => {
-                            setOptions((prev) => ({ ...prev, model }));
-                          }}
-                        >
-                          <Check
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              model.label === options.model.label
-                                ? "opacity-100"
-                                : "opacity-0"
-                            )}
-                          />
-                          {model.label}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-
                 {[MATERIALS, FINISHES].map(
                   ({ name, label, options: selectableOptions }) => (
                     <RadioGroup
