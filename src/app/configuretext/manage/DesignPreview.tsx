@@ -125,6 +125,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
             country={"by"}
             onlyCountries={["by"]}
             countryCodeEditable={false}
+            specialLabel={"Номер телефона"}
           />
         </form>
 

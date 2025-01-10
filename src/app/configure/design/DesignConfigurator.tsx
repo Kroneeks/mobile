@@ -115,6 +115,7 @@ const DesignConfigurator = ({
       userImage.crossOrigin = "anonymous";
       userImage.src = imageUrl;
       await new Promise((resolve) => (userImage.onload = resolve));
+      console.log(userImage.src);
 
       ctx?.drawImage(
         userImage,
